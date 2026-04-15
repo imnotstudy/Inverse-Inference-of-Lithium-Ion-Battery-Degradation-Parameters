@@ -1,14 +1,13 @@
 # Inverse Inference of Lithium-Ion Battery Degradation Parameters
 
-This repository provides the implementation and supporting scripts for *Inverse Inference of Lithium-Ion Battery Degradation Parameters*.
+This repository provides the implementation and supporting scripts for *Inverse Inference of Lithium-Ion Battery Degradation Parameters via Physical Modeling and Data-Driven Machine Learning*. 
+Our research is addressed by segmenting battery degradation into a few stages. This work develops a physically informed inverse inference framework for lithium-ion battery degradation modeling. By leveraging the characteristic two-stage degradation behavior, it links observable features in experimental capacity-fade curves to internal degradation parameters through PyBaMM simulations and lightweight machine learning models, enabling efficient and interpretable parameter inference from aging data.
 
 <p align="center">
   <a href="Figures/Multistage_Segmentation.pdf">
     <img src="Figures/Multistage_Segmentation.png" alt="Multistage segmentation" width="960">
   </a>
 </p>
-
-Our research is addressed by segmenting battery degradation into a few stages. This work develops a physically informed inverse inference framework for lithium-ion battery degradation modeling. By leveraging the characteristic two-stage degradation behavior, it links observable features in experimental capacity-fade curves to internal degradation parameters through PyBaMM simulations and lightweight machine learning models, enabling efficient and interpretable parameter inference from aging data.
 
 
 
