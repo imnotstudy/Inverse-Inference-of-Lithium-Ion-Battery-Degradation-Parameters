@@ -1,0 +1,81 @@
+# Benchmark configuration for the manuscript-facing release.
+# Replace `inputs.predictions_csv` with the manuscript prediction table when running the full study.
+
+inputs:
+  predictions_csv: data/benchmark/xgb_cap_50_sample.csv
+
+outputs:
+  root_dir: results/benchmark
+  checkpoints_dir: checkpoints
+  summaries_dir: summaries
+  logs_dir: logs
+
+runtime:
+  max_workers: 1
+  log_level: INFO
+
+solver:
+  mode: safe
+  dt_max: 1
+  rtol: 1.0e-7
+  atol: 1.0e-7
+
+study:
+  pybamm_log_level: NOTICE
+  # Prada2013 is for LFP cells, which are more likely to show SEI growth and lithium plating than NMC cells.
+  parameter_values: Prada2013
+  required_columns:
+    - id
+    - sei
+    - plating
+    - crate
+    - b1
+    - b2
+    - pred_scale
+  breakpoint_columns:
+    - b1
+    - b2
+  tracked_parameters:
+    sei: SEI reaction exchange current density [A.m-2]
+    plating: Dead lithium decay constant [s-1]
+  baseline_parameters:
+    Current function [A]: 1.1
+    Nominal cell capacity [A.h]: 1.1
+  concentration_scaling:
+    negative:
+      parameter: Initial concentration in negative electrode [mol.m-3]
+      base_value: 12222.0
+    positive:
+      parameter: Initial concentration in positive electrode [mol.m-3]
+      base_value: 22.806
+  experiment:
+    period: 0.1 minute
+    temperature: 30 oC
+    steps:
+      - Charge at {crate}C until 3.2 V
+      - Charge at 1C until 3.6 V
+      - Hold at 3.6 V until C/50
+      - Discharge at 4C until 2.0 V
+      - Hold at 2.0 V until C/50
+  summary_variable: Measured capacity [A.h]
+  cycle_capacity_variable: Discharge capacity [A.h]
+  save_at_cycles: 200
+  stages:
+    - name: sei
+      checkpoint_output: true
+      model_options:
+        SEI:
+          - reaction limited
+          - none
+        SEI porosity change: "true"
+    - name: plating
+      summary_output: true
+      model_options:
+        SEI:
+          - reaction limited
+          - none
+        SEI porosity change: "true"
+        lithium plating:
+          - partially reversible
+          - none
+        lithium plating porosity change: "true"
