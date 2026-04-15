@@ -2,11 +2,13 @@
 
 This repository provides the implementation and supporting scripts for *Inverse Inference of Lithium-Ion Battery Degradation Parameters*.
 
-[![Multistage segmentation](Figures/Multistage_Segmentation.png)]
+<p align="center">
+  <a href="Figures/Multistage_Segmentation.pdf">
+    <img src="Figures/Multistage_Segmentation.png" alt="Multistage segmentation" width="960">
+  </a>
+</p>
 
 Our research is addressed by segmenting battery degradation into a few stages. This work develops a physically informed inverse inference framework for lithium-ion battery degradation modeling. By leveraging the characteristic two-stage degradation behavior, it links observable features in experimental capacity-fade curves to internal degradation parameters through PyBaMM simulations and lightweight machine learning models, enabling efficient and interpretable parameter inference from aging data.
-
-The repository is organized as a manuscript-facing reproducibility package. The benchmark workflow is configured through YAML and executed through a single script so that study settings, inputs, and outputs are easy to inspect.
 
 
 
@@ -52,5 +54,4 @@ Running the benchmark writes outputs under `results/benchmark/`:
 This repository includes small sample inputs and generated checkpoints only for testing the implementation pipeline.
 
 These bundled data samples and checkpoints are not intended to reproduce the manuscript results. For a full scientific reproduction study, replace the sample input file with the appropriate benchmark dataset and regenerate outputs using your target configuration.
-
 
